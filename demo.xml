@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+    	<!-- main menu -->
+        <menuitem name="browser widget integration samples" id="menu_browser_demo" sequence="9" />
+
+	   <!-- menu entry below main menu -->
+        <record model="ir.action.act_window" id="act_browser_demo_form">
+            <field name="name">link list</field>
+            <field name="res_model">browser.links</field>
+        </record>
+		<menuitem parent="menu_browser_demo" sequence="1" id="menu_browser_demo_form" icon="tryton-list" action="act_browser_demo_form"/>
+
+
+        <record model="ir.ui.view" id="view_google">
+            <field name="model"></field>
+            <field name="type">browser</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <browser string="integrated Browser" url="http://www.google.de">
+                </browser>
+                ]]>
+            </field>
+        </record>
+        <record model="ir.action.act_window" id="act_google">
+            <field name="name">Google</field>
+            <field name="res_model"></field>
+            <field name="type">ir.action.act_window</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_google_view1">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="view_google"/>
+            <field name="act_window" ref="act_google"/>
+        </record>
+        <menuitem id="menu_google" action="act_google" parent="menu_browser_demo" sequence="9"/>
+
+        <record model="ir.ui.view" id="view_bing">
+            <field name="model"></field>
+            <field name="type">browser</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <browser string="integrated Browser" url="http://www.bing.de">
+                </browser>
+                ]]>
+            </field>
+        </record>
+        <record model="ir.action.act_window" id="act_bing">
+            <field name="name">bing</field>
+            <field name="res_model"></field>
+            <field name="type">ir.action.act_window</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_bing_view1">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="view_bing"/>
+            <field name="act_window" ref="act_bing"/>
+        </record>
+        <menuitem id="menu_bing" action="act_bing" parent="menu_browser_demo" sequence="10"/>
+
+
+		<!-- list -->
+        <record model="ir.ui.view" id="links_view_tree">
+            <field name="model">browser.links</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <tree string="browser links">
+                    <field name="name"/>
+                    <field name="url"/>
+                </tree>
+                ]]>
+            </field>
+        </record>
+		
+		<!-- element form -->
+		<record model="ir.ui.view" id="links_view_form">
+            <field name="model">browser.links</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml" col="2">
+              <![CDATA[
+              <form string="browser links">
+                <label name="name"/>
+                <field name="name"/>
+                <newline/>
+                <label name="url"/>
+				<field name="url" colspan="2" />
+				<newline/>
+				<field name="url" widget="browser" colspan="2" yfill="1" />
+              </form>
+              ]]>
+            </field>
+       </record>
+	   
+		<!-- View that connect the form in the tree with the specification -->
+        <record model="ir.action.act_window.view" id="act_links_form_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="links_view_tree"/>
+            <field name="act_window" ref="act_browser_demo_form"/>
+        </record>
+
+        <!-- View for the edition or the Form of links-->
+        <record model="ir.action.act_window.view" id="act_links_form_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="links_view_form"/>
+            <field name="act_window" ref="act_browser_demo_form"/>
+        </record>
+    </data>
+</tryton>

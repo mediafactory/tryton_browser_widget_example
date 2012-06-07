@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="demo_address_view_form">
+            <field name="model">party.address</field>
+            <field name="type">form</field>
+            <field name="inherit" ref="party.address_view_form"/>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <data>
+					<xpath expr="/form/field[@name=&quot;subdivision&quot;]" position="after">
+						<newline/>
+						<field name="google" widget="browser" yfill="1" colspan="6"/>
+				    </xpath>
+                </data>
+                ]]>
+            </field>
+        </record>
+    </data>
+</tryton>
